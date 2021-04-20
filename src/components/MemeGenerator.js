@@ -10,6 +10,7 @@ export default class MemeGenerator extends Component {
             randomImg: "http://i.imgflip.com/1bij.jpg"
         };
         this.handleChange = this.handleChange.bind(this);
+        this.getRandomImage = this.getRandomImage.bind(this);
     }
 
     componentDidMount() {
@@ -26,10 +27,17 @@ export default class MemeGenerator extends Component {
         this.setState({ [name]: value });
     }
 
+    getRandomImage(event) {
+        event.preventDefault()
+        const randNum = Math.floor(Math.random() * this.state.allMemeImgs.length);
+        const randMemeImg = this.state.allMemeImgs[randNum].url;
+        this.setState({ randomImg: randMemeImg });
+    }
+
     render() {
         return (
             <div>
-                <form className="meme-form">
+                <form className="meme-form" onSubmit={this.getRandomImage}>
                     <input
                         type="text"
                         name="topText"
